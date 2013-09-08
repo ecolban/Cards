@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  * A Deck consists of 52 Cards.
  *
  *
- * @author Erik Colban
+ * @author Erik Colban &copy; 2013
  */
 public class Deck {
 
@@ -27,7 +27,7 @@ public class Deck {
      */
     private final Card[] shuffledCards = new Card[4 * 13];
     /**
-     * The next card to be dealt from the deck
+     * The indext to the next card to be dealt from the deck
      */
     private int nextCard;
     /**
@@ -35,7 +35,7 @@ public class Deck {
      */
     private final Random random = new Random();
     /**
-     * The width f the cards in this deck
+     * The width of the cards in this deck
      */
     private static int cardWidth = 150;
     /**
