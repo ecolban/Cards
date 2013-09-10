@@ -1,11 +1,12 @@
 package org.wintrisstech.cards;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -47,7 +48,6 @@ public final class Card {
 		CLUBS, DIAMONDS, HEARTS, SPADES;
 	}
 
-
 	/**
 	 * Creates an instance of a Card. Note that this constructor is package-
 	 * private, i.e., cannot be invoked outside the package. Use
@@ -75,24 +75,7 @@ public final class Card {
 		}
 		Image image = allFaceImages[suitIndex][number - 1];
 		if (image == null) { // load image
-			String fileName;
-			switch (number) {
-			case 1:
-				fileName = suit.toString().toLowerCase() + "-a-150.png";
-				break;
-			case 11:
-				fileName = suit.toString().toLowerCase() + "-j-150.png";
-				break;
-			case 12:
-				fileName = suit.toString().toLowerCase() + "-q-150.png";
-				break;
-			case 13:
-				fileName = suit.toString().toLowerCase() + "-k-150.png";
-				break;
-			default:
-				fileName = suit.toString().toLowerCase() + "-" + number + "-150.png";
-				break;
-			}
+			String fileName = getFileName(suit, number);
 			// Instantiate the Card
 			InputStream imageStream = getClass().getResourceAsStream(
 					"images/" + fileName);
@@ -107,6 +90,28 @@ public final class Card {
 		this.backImage = backImage;
 	}
 
+	private String getFileName(Suit suit, int number) {
+		String fileName;
+		switch (number) {
+		case 1:
+			fileName = suit.toString().toLowerCase() + "-a-75.png";
+			break;
+		case 11:
+			fileName = suit.toString().toLowerCase() + "-j-75.png";
+			break;
+		case 12:
+			fileName = suit.toString().toLowerCase() + "-q-75.png";
+			break;
+		case 13:
+			fileName = suit.toString().toLowerCase() + "-k-75.png";
+			break;
+		default:
+			fileName = suit.toString().toLowerCase() + "-" + number
+					+ "-75.png";
+			break;
+		}
+		return fileName;
+	}
 
 	/**
 	 * Gets the image of the face.
@@ -207,5 +212,34 @@ public final class Card {
 			return false;
 		}
 		return true;
+	}
+
+	public static void main(String[] args) throws IOException,
+			URISyntaxException {
+		URL inDirUrl = Card.class.getResource("images");
+		if (inDirUrl == null) {
+			System.out.println("dir not found");
+			return;
+		}
+		File inDir = new File(inDirUrl.toURI());
+		
+		URL outDirUrl = Card.class.getResource("images_small");
+		if (outDirUrl == null) {
+			System.out.println("dir not found");
+			return;
+		}
+		
+		File outDir = new File(outDirUrl.toURI());
+
+		for (File file : inDir.listFiles()) {
+			String name = file.getName();
+			Image inImage = ImageIO.read(file);
+			File output = new File(outDir, name.replace("150", "75"));
+			Image im = inImage.getScaledInstance(75, -1, Image.SCALE_SMOOTH);
+			BufferedImage outImage = new BufferedImage(im.getWidth(null),
+					im.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+			outImage.getGraphics().drawImage(im, 0, 0, null);
+			ImageIO.write(outImage, "png", output);
+		}
 	}
 }

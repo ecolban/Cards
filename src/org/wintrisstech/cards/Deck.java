@@ -37,11 +37,11 @@ public class Deck {
     /**
      * The width of the cards in this deck
      */
-    private static int cardWidth = 150;
+    private static int cardWidth = 75;
     /**
      * The height of the cards in this deck
      */
-    private static int cardHeight = 215;
+    private static int cardHeight = 107;
 
     /**
      * Creates an instance of Deck containing exactly one instance of each of 
@@ -55,9 +55,9 @@ public class Deck {
             if (color == null) {
                 throw new IllegalArgumentException("Argument must be non-null.");
             } else if (color.equals(Color.RED)) {
-                backImage = ImageIO.read(Card.class.getResource("Cards/back-red-150-1.png"));
+                backImage = ImageIO.read(Card.class.getResource("images_small/back-red-75-1.png"));
             } else if (color.equals(Color.BLUE)) {
-                backImage = ImageIO.read(Card.class.getResource("Cards/back-blue-150-1.png"));
+                backImage = ImageIO.read(Card.class.getResource("images_small/back-blue-75-1.png"));
             } else {
                 throw new IllegalArgumentException("Argument must either Color.RED or Color.BLUE.");
             }
@@ -77,8 +77,8 @@ public class Deck {
      * the back of the cards is left blank.
      *
      * @param url The url of the image file containing the back image of the
-     * cards. This image should preferably have dimensions width = 150 and
-     * height = 215; otherwise it is scaled to those dimensions, and the quality
+     * cards. This image should preferably have dimensions width = 75 and
+     * height = 107; otherwise it is scaled to those dimensions, and the quality
      * may be poor.
      */
     public Deck(URL url) {
