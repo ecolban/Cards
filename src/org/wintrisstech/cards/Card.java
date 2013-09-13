@@ -162,15 +162,15 @@ public final class Card {
 	public String toString() {
 		switch (number) {
 		case 1:
-			return "ace of " + suit;
+			return "ace of " + suit.toString().toLowerCase();
 		case 11:
-			return "jack of " + suit;
+			return "jack of " + suit.toString().toLowerCase();
 		case 12:
-			return "queen of " + suit;
+			return "queen of " + suit.toString().toLowerCase();
 		case 13:
-			return "king of " + suit;
+			return "king of " + suit.toString().toLowerCase();
 		default:
-			return number + " of " + suit;
+			return number + " of " + suit.toString().toLowerCase();
 		}
 	}
 
