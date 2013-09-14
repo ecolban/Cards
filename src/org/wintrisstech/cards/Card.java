@@ -213,33 +213,4 @@ public final class Card {
 		}
 		return true;
 	}
-
-	public static void main(String[] args) throws IOException,
-			URISyntaxException {
-		URL inDirUrl = Card.class.getResource("images");
-		if (inDirUrl == null) {
-			System.out.println("dir not found");
-			return;
-		}
-		File inDir = new File(inDirUrl.toURI());
-		
-		URL outDirUrl = Card.class.getResource("images_small");
-		if (outDirUrl == null) {
-			System.out.println("dir not found");
-			return;
-		}
-		
-		File outDir = new File(outDirUrl.toURI());
-
-		for (File file : inDir.listFiles()) {
-			String name = file.getName();
-			Image inImage = ImageIO.read(file);
-			File output = new File(outDir, name.replace("150", "75"));
-			Image im = inImage.getScaledInstance(75, -1, Image.SCALE_SMOOTH);
-			BufferedImage outImage = new BufferedImage(im.getWidth(null),
-					im.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-			outImage.getGraphics().drawImage(im, 0, 0, null);
-			ImageIO.write(outImage, "png", output);
-		}
-	}
 }
