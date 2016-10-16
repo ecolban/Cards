@@ -46,6 +46,10 @@ public final class Card {
 	public static enum Suit {
 
 		CLUBS, DIAMONDS, HEARTS, SPADES;
+		
+		public boolean contains(Card card) {
+			return card.suit == this;
+		}
 	}
 
 	/**
