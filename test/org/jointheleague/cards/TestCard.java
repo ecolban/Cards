@@ -1,3 +1,7 @@
+//
+// Property of The League of Amazing Programmers
+// All rights reserved -- 2016
+//
 package org.jointheleague.cards;
 
 import static org.junit.Assert.*;
@@ -8,12 +12,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.jointheleague.cards.Card.Suit;
 import org.junit.Before;
 import org.junit.Test;
-
-
-
 
 public class TestCard {
 	
@@ -67,6 +67,16 @@ public class TestCard {
 			assertEquals(13, value.size());
 			for (int n = 1; n <= 13; n++) {
 				assertTrue(value.contains(n));
+			}
+		}
+	}
+	
+	@Test
+	public void testEquals() {
+		Deck deck2 = new Deck(Color.RED);
+		for (Card.Suit suit : Card.Suit.values()) {
+			for (int n = 1; n <= 13; n++) {
+				assertEquals(deck.getCard(suit, n), deck2.getCard(suit, n));
 			}
 		}
 	}
