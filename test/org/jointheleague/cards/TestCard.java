@@ -54,17 +54,20 @@ public class TestCard {
 	
 	@Test
 	public void testCardsPerSuit() {
-		Map<Card.Suit, Integer> suits = new HashMap<>();
+		Map<Card.Suit, Set<Integer>> suits = new HashMap<>();
 		for(Card.Suit s: Card.Suit.values()) {
-			suits.put(s, 0);
+			suits.put(s, new HashSet<Integer>());
 		}
 		while(deck.getCount() > 0) {
 			Card card = deck.getCard();
-			int n = suits.get(card.getSuit());
-			suits.put(card.getSuit(), n + 1);
+			Set<Integer> numbers = suits.get(card.getSuit());
+			numbers.add(card.getNumber());
 		}
-		for (Integer value : suits.values()) {
-			assertEquals(Integer.valueOf(13), value);
+		for (Set<Integer> value : suits.values()) {
+			assertEquals(13, value.size());
+			for (int n = 1; n <= 13; n++) {
+				assertTrue(value.contains(n));
+			}
 		}
 	}
 	
